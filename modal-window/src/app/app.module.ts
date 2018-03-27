@@ -1,12 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { ModalWindowModule } from "./modal-window/modal-window.module";
 
 import { AppComponent } from './app.component';
-import {ModalWindowModule} from "./modal-window/modal-window.module";
-import { MyComponentComponent } from './my-component/my-component.component';
 import { ContentModalComponent } from './content-modal/content-modal.component';
-
+import { ModalWindowService } from "./modal-window.service";
 
 @NgModule({
   declarations: [
@@ -14,10 +13,13 @@ import { ContentModalComponent } from './content-modal/content-modal.component';
     ContentModalComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ModalWindowModule
   ],
-  providers: [],
+  providers: [ ModalWindowService ],
   bootstrap: [ AppComponent ],
-  entryComponents: [ ContentModalComponent ]
+  entryComponents: [
+    ContentModalComponent
+  ]
 })
 export class AppModule { }
