@@ -1,26 +1,21 @@
 import { Injectable } from '@angular/core';
-import { ComponentFactoryResolver } from "@angular/core";
-
-import { ModalWindowComponent } from "./modal-window/modal-window.component";
-
+import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
 
 @Injectable()
 export class ModalWindowService {
 
+  private component$ = new Subject<any>();
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver
-  ) { }
 
-  loadModal(modalWindow, component) {
+  ) {  }
 
-    modalWindow.clear();
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    modalWindow.createComponent(componentFactory)
+  loadModal(component) {
+    this.component$.next({name: component});
   }
 
-  hideModal() {
-
+  getComponent(): Observable<any> {
+    return this.component$.asObservable();
   }
-
 }

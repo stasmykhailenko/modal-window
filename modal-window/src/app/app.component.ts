@@ -1,10 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { ViewContainerRef } from "@angular/core";
+import { Component } from '@angular/core';
 
 import { ModalWindowService } from "./modal-window.service";
 import { ContentModalComponent } from "./content-modal/content-modal.component";
-
-import { ModalWindowComponent } from "./modal-window/modal-window.component";
 
 
 @Component({
@@ -14,8 +11,6 @@ import { ModalWindowComponent } from "./modal-window/modal-window.component";
 })
 export class AppComponent {
 
-  @ViewChild("modalWindow", { read: ViewContainerRef }) modalWindow;
-
   constructor(
     public modalWindowService: ModalWindowService
   ) { }
@@ -24,6 +19,6 @@ export class AppComponent {
   }
 
   showModal() {
-    this.modalWindowService.loadModal(this.modalWindow, ModalWindowComponent);
+    this.modalWindowService.loadModal(ContentModalComponent);
   }
 }

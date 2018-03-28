@@ -16,11 +16,12 @@ import { ModalWindowComponent } from './modal-window/modal-window.component';
   imports: [
     BrowserModule
   ],
-  providers: [ ModalWindowService ],
+  providers: [
+    ModalWindowService
+  ],
   bootstrap: [ AppComponent ],
   entryComponents: [
-    ContentModalComponent,
-    ModalWindowComponent
+    ContentModalComponent
   ]
 })
 export class AppModule { }
