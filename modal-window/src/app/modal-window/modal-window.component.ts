@@ -2,12 +2,12 @@ import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRe
 import { Subscription } from "rxjs/Subscription";
 import { ElementRef } from "@angular/core";
 
-import { ModalWindowService } from "../modal-window.service";
+import { ModalWindowService } from "./modal-window.service";
 
 @Component({
   selector: 'app-modal-window',
   templateUrl: './modal-window.component.html',
-  styleUrls: ['./modal-window.component.css']
+  styleUrls: ['./modal-window.component.scss']
 })
 export class ModalWindowComponent implements OnInit {
 
