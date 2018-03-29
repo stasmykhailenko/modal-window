@@ -1,6 +1,7 @@
-import { Component, ComponentFactoryResolver, OnInit, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subscription } from "rxjs/Subscription";
 import { ElementRef } from "@angular/core";
+import { Renderer2 } from "@angular/core";
 
 import { ModalWindowService } from "./modal-window.service";
 
@@ -9,7 +10,7 @@ import { ModalWindowService } from "./modal-window.service";
   templateUrl: './modal-window.component.html',
   styleUrls: ['./modal-window.component.scss']
 })
-export class ModalWindowComponent implements OnInit, OnDestroy {
+export class ModalWindowComponent implements OnDestroy {
 
   @ViewChild("modalTemplate", { read: ViewContainerRef }) modalTemplate;
 
@@ -18,6 +19,7 @@ export class ModalWindowComponent implements OnInit, OnDestroy {
   constructor(
     private modalWindowService: ModalWindowService,
     private componentFactoryResolver: ComponentFactoryResolver,
+    private renderer: Renderer2,
     private elementRef: ElementRef
   ) {
     this.subscription = this.modalWindowService.getComponent().subscribe((component) => {
@@ -25,22 +27,17 @@ export class ModalWindowComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
-    this.elementRef.nativeElement.style.display = "none";
-  }
-
   showModal(component) {
     this.modalTemplate.clear();
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(component.name);
     this.modalTemplate.createComponent(componentFactory);
-    this.elementRef.nativeElement.style.display = "block";
+    this.renderer.addClass(this.elementRef.nativeElement, 'visible');
   }
 
   hideModal() {
     this.modalTemplate.clear();
-    this.elementRef.nativeElement.style.display = "none";
+    this.renderer.removeClass(this.elementRef.nativeElement, 'visible');
   }
-
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
