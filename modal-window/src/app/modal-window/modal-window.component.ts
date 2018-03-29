@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subscription } from "rxjs/Subscription";
 import { ElementRef } from "@angular/core";
 
@@ -9,7 +9,7 @@ import { ModalWindowService } from "./modal-window.service";
   templateUrl: './modal-window.component.html',
   styleUrls: ['./modal-window.component.scss']
 })
-export class ModalWindowComponent implements OnInit {
+export class ModalWindowComponent implements OnInit, OnDestroy {
 
   @ViewChild("modalTemplate", { read: ViewContainerRef }) modalTemplate;
 
@@ -39,6 +39,11 @@ export class ModalWindowComponent implements OnInit {
   hideModal() {
     this.modalTemplate.clear();
     this.elementRef.nativeElement.style.display = "none";
+  }
+
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
